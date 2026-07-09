@@ -1,0 +1,69 @@
+{
+  "name": "@stoxxi/orderbook",
+  "version": "1.1.1",
+  "description": "Deterministic, in-memory, price-time-priority limit order book (CLOB) matching engine — pure logic, bigint arithmetic, zero I/O, O(1) cancel, FIX-aligned lifecycle.",
+  "license": "MIT",
+  "author": "Double Digitize",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stoxxi/orderbook.git"
+  },
+  "homepage": "https://github.com/stoxxi/orderbook#readme",
+  "bugs": {
+    "url": "https://github.com/stoxxi/orderbook/issues"
+  },
+  "keywords": [
+    "order-book",
+    "orderbook",
+    "matching-engine",
+    "CLOB",
+    "limit-order-book",
+    "price-time-priority",
+    "exchange",
+    "trading",
+    "bigint",
+    "deterministic",
+    "FIX"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -b && node scripts/fix-esm-extensions.mjs",
+    "dev": "tsc --watch",
+    "lint": "eslint .",
+    "test": "bun test --parallel",
+    "bench": "for f in __bench__/*.bench.ts; do bun run $f; done",
+    "prepublishOnly": "tsc -b --force && node scripts/fix-esm-extensions.mjs && bun test --parallel && node --input-type=module -e \"await import('./dist/index.js'); await import('./dist/math.js'); console.log('node ESM smoke OK');\""
+  },
+  "dependencies": {
+    "@js-sdsl/ordered-map": "4.4.2"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^6.0.3"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./math": {
+      "types": "./dist/math.d.ts",
+      "import": "./dist/math.js"
+    }
+  },
+  "files": [
+    "dist",
+    "!dist/**/*.map",
+    "CHANGELOG.md"
+  ]
+}
