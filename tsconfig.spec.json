@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json", // Inherits all settings from the main build config
+  "compilerOptions": {
+    // For testing, we don't need to emit files. This speeds up type-checking.
+    "noEmit": true,
+    // Remove the rootDir constraint for the test/dev environment.
+    // This allows us to include test and bench files from outside `src`.
+    "rootDir": null
+  },
+  // Include all files needed for development: source, tests, and benchmarks.
+  "include": ["src", "__tests__", "bench"]
+}
